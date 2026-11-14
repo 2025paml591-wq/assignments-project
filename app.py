@@ -43,6 +43,11 @@ if "decisions" not in st.session_state or st.session_state.get("scenario_id") !=
     st.session_state["decisions"] = {}
     st.session_state["scenario_id"] = scenario_id
 
+run_all_agents_value = os.getenv("RUN_ALL_AGENTS", "true").strip().lower()
+if run_all_agents_value not in {"true", "false"}:
+    raise ValueError("RUN_ALL_AGENTS must be set to 'true' or 'false'.")
+run_all_agents = run_all_agents_value == "true"
+
 classical_agents = [
     SimpleReflexAgent(),
     ModelBasedReflexAgent(),
@@ -50,26 +55,60 @@ classical_agents = [
     UtilityBasedAgent(),
 ]
 learning_agent = LearningAgent()
-run_classical = st.button("Run / refresh five classical agents", type="primary")
-if run_classical:
-    st.session_state["decisions"] = {
-        agent.name: agent.decide(scenario).as_dict() for agent in classical_agents
-    }
-    st.session_state["decisions"][learning_agent.name] = learning_agent.decide(scenario).as_dict()
-
-col_a, col_b = st.columns([1, 2])
-with col_a:
+run_agents_label = "Run all six agents" if run_all_agents else "Run five classical agents"
+with st.form("run_agents_form"):
     azure_deployment = st.text_input(
         "Azure OpenAI deployment",
         value=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", ""),
     )
-    run_llm = st.button("Run Azure OpenAI agent")
-with col_b:
-    st.info("The Azure OpenAI agent calls metrics and cost tools (and may call SLO/scaling tools). Set its endpoint, deployment, and API key in the root .env file.")
-if run_llm:
-    with st.spinner("Calling Azure OpenAI and collecting tool evidence..."):
-        llm_result = AzureOpenAIAdvisorAgent(model=azure_deployment).decide(scenario)
-    st.session_state["decisions"][llm_result["agent"]] = llm_result
+    azure_endpoint = st.text_input(
+        "Azure OpenAI base URL",
+        value=os.getenv("AZURE_OPENAI_ENDPOINT", ""),
+        placeholder="https://your-resource.openai.azure.com/",
+    )
+    azure_api_key = st.text_input(
+        "Azure OpenAI API key",
+        type="password",
+        help="Masked input. Leave blank to use AZURE_OPENAI_API_KEY from .env, if set.",
+    )
+    run_agents = st.form_submit_button(run_agents_label, type="primary")
+
+if run_agents:
+    decisions = {
+        agent.name: agent.decide(scenario).as_dict() for agent in classical_agents
+    }
+    decisions[learning_agent.name] = learning_agent.decide(scenario).as_dict()
+    if run_all_agents:
+        effective_endpoint = azure_endpoint or os.getenv("AZURE_OPENAI_ENDPOINT", "")
+        effective_api_key = azure_api_key or os.getenv("AZURE_OPENAI_API_KEY", "")
+        missing_azure_settings = [
+            name for name, value in (
+                ("AZURE_OPENAI_DEPLOYMENT_NAME", azure_deployment),
+                ("AZURE_OPENAI_ENDPOINT", effective_endpoint),
+                ("AZURE_OPENAI_API_KEY", effective_api_key),
+            )
+            if not value
+        ]
+        if missing_azure_settings:
+            st.warning(
+                "Azure OpenAI agent was not run; configure "
+                + ", ".join(missing_azure_settings)
+                + "."
+            )
+        else:
+            with st.spinner("Calling Azure OpenAI and collecting tool evidence..."):
+                llm_result = AzureOpenAIAdvisorAgent(
+                    model=azure_deployment,
+                    endpoint=effective_endpoint,
+                    api_key=effective_api_key,
+                ).decide(scenario)
+            decisions[llm_result["agent"]] = llm_result
+    st.session_state["decisions"] = decisions
+
+st.info(
+    "Enter the Azure OpenAI base URL and API key above. The API key is masked; "
+    "it is not saved to the repository. When RUN_ALL_AGENTS=true, Azure runs with the other agents."
+)
 
 decisions = st.session_state["decisions"]
 if decisions:

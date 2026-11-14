@@ -22,16 +22,16 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Configure the Azure OpenAI endpoint, deployment, API version, and key in a root `.env` file:
+Configure the deployment and API version in a root `.env` file:
 
 ```env
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT_NAME=your-deployment-name
 AZURE_OPENAI_API_VERSION=2024-12-01-preview
-AZURE_OPENAI_API_KEY=your-api-key
+RUN_ALL_AGENTS=true
 ```
 
-Keep `.env` local; it is excluded from Git so the API key is not committed.
+Enter the Azure OpenAI base URL and API key in the UI when running the agents. The API key field is masked and the key is not saved to the repository. For local configuration, the endpoint can still fall back to `AZURE_OPENAI_ENDPOINT` and the API key can fall back to `AZURE_OPENAI_API_KEY` in `.env`. Keep `.env` local; it is excluded from Git.
+Set `RUN_ALL_AGENTS=false` to run only the five classical agents from the UI.
 
 ## Run
 
@@ -39,7 +39,7 @@ Keep `.env` local; it is excluded from Git so the API key is not committed.
 streamlit run app.py
 ```
 
-Select A, B, or C. Run the classical agents for a deterministic comparison; run the Azure OpenAI agent separately because it requires a valid Azure endpoint and deployment. The UI displays configuration, estimated cost/performance, reasoning, tool evidence, and a monitoring plan. The learning-agent outcome controls update `agents/learning_experience.json`; rerun the classical agents to see updated history reflected in its reasoning.
+Select A, B, or C, enter the Azure OpenAI deployment, base URL, and API key in the UI, then click **Run all six agents**. The API key is a masked input and is used only for the current run. If Azure settings are missing, the UI explains which ones are needed and still displays the classical-agent results. Set `RUN_ALL_AGENTS=false` to run only the five classical agents. The UI displays configuration, estimated cost/performance, reasoning, tool evidence, and a monitoring plan. The learning-agent outcome controls update `agents/learning_experience.json`; rerun the agents to see updated history reflected in its reasoning.
 
 ## Tests
 
@@ -47,7 +47,7 @@ Select A, B, or C. Run the classical agents for a deterministic comparison; run 
 python -m unittest discover -s tests -v
 ```
 
-The tests cover all five classical agents over all three scenarios, shared-input immutability, peak-aware model reasoning, learning-history updates, and scenario-specific outputs from each LLM tool. They do not make Azure OpenAI API calls.
+The tests cover all five classical agents over all three scenarios, shared-input immutability, peak-aware model reasoning, learning-history updates, scenario-specific outputs from each LLM tool, and the UI's Azure configuration flow. They do not make Azure OpenAI API calls.
 
 ## Demonstration results
 

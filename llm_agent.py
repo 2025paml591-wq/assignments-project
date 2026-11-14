@@ -52,10 +52,15 @@ TOOL_BY_NAME = {item.name: item for item in TOOLS}
 class AzureOpenAIAdvisorAgent:
     name = "Azure OpenAI (tool-using)"
 
-    def __init__(self, model: str | None = None):
-        self.model = model or os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
-        self.endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-        self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
+    def __init__(
+        self,
+        model: str | None = None,
+        endpoint: str | None = None,
+        api_key: str | None = None,
+    ):
+        self.model = model if model is not None else os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+        self.endpoint = endpoint if endpoint is not None else os.getenv("AZURE_OPENAI_ENDPOINT")
+        self.api_key = api_key if api_key is not None else os.getenv("AZURE_OPENAI_API_KEY")
         self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
         missing = [
             name for name, value in (
