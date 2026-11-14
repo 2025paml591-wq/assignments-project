@@ -85,4 +85,6 @@ The model-based, goal-based, utility-based, and learning approaches can disagree
 
 ## Screenshots and test output
 
+The formatted assignment report is available as [Assignment 1 Set 3 - Group 10 Demo Report](./Assignment1_Set3_Group10_Demo_Report.pdf).
+
 Screenshots for A, B, and C are included in `screenshots/scenario-a.png`, `screenshots/scenario-b.png`, and `screenshots/scenario-c.png`. Test output and deterministic classical-agent results are recorded in `TEST_RESULTS.txt`.
