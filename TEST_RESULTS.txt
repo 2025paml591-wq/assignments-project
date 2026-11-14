@@ -1,8 +1,8 @@
 Command:
 
-    .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+    python -m unittest discover -s tests -v
 
-Result: 7 tests passed (2026-11-14).
+Result: 10 tests passed (2026-11-14).
 
     test_all_classical_agents_decide_for_each_shared_scenario ... ok
     test_goal_agent_accepts_exact_availability_threshold ... ok
@@ -11,8 +11,11 @@ Result: 7 tests passed (2026-11-14).
     test_model_based_agent_responds_to_peak_variability ... ok
     test_scenario_copy_is_isolated ... ok
     test_tool_evidence_is_scenario_specific ... ok
+    test_run_all_agents_includes_azure_when_configured ... ok
+    test_run_all_agents_reports_missing_azure_settings ... ok
+    test_run_all_agents_setting_can_disable_azure ... ok
 
-The suite covers all three scenarios and all five classical agents, scenario isolation, peak-aware model reasoning, persistent learning feedback, and scenario-specific LLM tool results. It does not invoke Azure OpenAI; a valid Azure deployment is required for an end-to-end LLM call.
+The suite covers all three scenarios and all five classical agents, scenario isolation, peak-aware model reasoning, persistent learning feedback, scenario-specific LLM tool results, and the UI's Azure settings flow. UI tests mock the Azure agent; the suite does not make Azure OpenAI API calls. A valid Azure deployment is required for an end-to-end LLM call.
 
 ## Classical-agent scenario outputs
 

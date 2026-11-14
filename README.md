@@ -49,6 +49,21 @@ python -m unittest discover -s tests -v
 
 The tests cover all five classical agents over all three scenarios, shared-input immutability, peak-aware model reasoning, learning-history updates, scenario-specific outputs from each LLM tool, and the UI's Azure configuration flow. They do not make Azure OpenAI API calls.
 
+## Assignment 1 Set 3 submission checklist
+
+Checklist from [Assignment 1-set-3 (Groups 9-12)](https://taxila-aws.bits-pilani.ac.in/mod/assign/view.php?id=357537):
+
+| Requirement | Repository evidence | Status |
+|---|---|---|
+| Five classical agents and an LLM agent | `agents/`, `llm_agent.py` | Present |
+| Requirements, README, Streamlit UI, and setup/run instructions | `requirements.txt`, this README, `app.py` | Present |
+| Three scenarios, tests, and screenshots | `scenarios.py`, `tests/`, `screenshots/`, `TEST_RESULTS.txt` | Present |
+| Comparison table and explanation of differing decisions | Demonstration results below | Present |
+| Learning agent uses and updates experience | `agents/learning.py`, `agents/learning_experience.json`, UI outcome controls | Present |
+| LangChain tool calling with a local Ollama model | `llm_agent.py` currently uses Azure OpenAI instead | **Not met** |
+
+The assignment specifically requires a local Ollama model for the LLM agent. The current Azure implementation uses LangChain tools but does not satisfy that provider requirement; replace it with an Ollama-backed implementation before claiming full assignment compliance.
+
 ## Demonstration results
 
 The estimates below are illustrative and use the repository's fixed scenario rates and simple capacity model; they are not cloud-provider quotes or performance guarantees.
