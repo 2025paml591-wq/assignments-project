@@ -1,0 +1,27 @@
+Command:
+
+    .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+
+Result: 7 tests passed (2026-11-14).
+
+    test_all_classical_agents_decide_for_each_shared_scenario ... ok
+    test_goal_agent_accepts_exact_availability_threshold ... ok
+    test_learning_agent_uses_and_updates_persistent_experience ... ok
+    test_model_based_agent_does_not_scale_up_for_small_low_load_fluctuations ... ok
+    test_model_based_agent_responds_to_peak_variability ... ok
+    test_scenario_copy_is_isolated ... ok
+    test_tool_evidence_is_scenario_specific ... ok
+
+The suite covers all three scenarios and all five classical agents, scenario isolation, peak-aware model reasoning, persistent learning feedback, and scenario-specific LLM tool results. It does not invoke Azure OpenAI; a valid Azure deployment is required for an end-to-end LLM call.
+
+## Classical-agent scenario outputs
+
+Illustrative estimated values (monthly USD / p95 milliseconds / availability):
+
+| Scenario | Simple Reflex | Model-Based Reflex | Goal-Based | Utility-Based | Learning |
+|---|---|---|---|---|---|
+| A — High CPU / latency | 5 medium; 288 / 520 / 99.95% | 5 medium; 288 / 546 / 99.95% | 8 medium; 460.80 / 315 / 99.99% | 8 medium; 460.80 / 315 / 99.99% | 5 medium; 288 / 520 / 99.95% |
+| B — Low use / high cost | 2 smaller; 230.40 / 300 / 99.90% | 3 xlarge; 691.20 / 300 / 99.90% | 2 xlarge; 460.80 / 240 / 99.90% | 2 xlarge; 460.80 / 240 / 99.90% | 3 smaller; 345.60 / 300 / 99.90% |
+| C — Sharp peak/off-peak | 5 medium; 288 / 350 / 99.95% | 5 medium; 288 / 358 / 99.95% | 4 medium; 230.40 / 345 / 99.99% | 4 medium; 230.40 / 345 / 99.99% | 5 medium; 288 / 350 / 99.95% |
+
+These are deterministic outputs from the fixed heuristic, not production measurements. LLM results are intentionally omitted because the Azure OpenAI agent was not invoked during this validation.

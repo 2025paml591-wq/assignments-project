@@ -1,0 +1,14 @@
+{
+  "scale_out": {
+    "success": 8,
+    "failure": 1
+  },
+  "rightsize": {
+    "success": 5,
+    "failure": 3
+  },
+  "autoscale": {
+    "success": 7,
+    "failure": 1
+  }
+}
