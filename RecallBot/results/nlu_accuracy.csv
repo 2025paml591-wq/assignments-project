@@ -1,0 +1,21 @@
+text,expected_intent,predicted_intent,correct
+What is my city?,semantic_recall,semantic_recall,1
+Mera kiraya kitna hai?,budget_lookup,budget_lookup,1
+Help me create a savings goal for emergency fund,goal_create,goal_create,1
+"Yes, save it",confirm,confirm,1
+Please forget my old rent,forget,forget,1
+Thanks for explaining,thanks,thanks,1
+What does POL-CF-2026 permit?,knowledge_query,knowledge_query,1
+What happened in the previous session?,episodic_recall,episodic_recall,1
+Show my current account balance,budget_lookup,budget_lookup,1
+What was my monthly income?,semantic_recall,semantic_recall,1
+And for Saturday?,open,open,1
+Hello there,open,open,1
+Can you explain code ERR-402?,knowledge_query,knowledge_query,1
+Meri latest income kitni hai?,budget_lookup,budget_lookup,1
+Cancel this goal,cancel,cancel,1
+What is my pet's name?,semantic_recall,semantic_recall,1
+BUD-108 mein confirmation zaroori hai kya?,knowledge_query,knowledge_query,1
+Please create a savings goal,goal_create,goal_create,1
+"My monthly rent is Rs 24,000",budget_lookup,budget_lookup,1
+Tell me the guide rule for subscriptions,knowledge_query,knowledge_query,1

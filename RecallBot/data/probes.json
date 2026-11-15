@@ -1,0 +1,18 @@
+[
+  {"id":"P01","category":"R","stage":"session_b","question":"Which city did I say I live in?","expected":"Hyderabad","code_mixed":false},
+  {"id":"P02","category":"R","stage":"session_b","question":"Meri current tracking preference kya hai?","expected":"simple weekly categories","code_mixed":true},
+  {"id":"P03","category":"U","stage":"session_b","question":"What is my latest monthly income?","expected":"92000","code_mixed":false},
+  {"id":"P04","category":"U","stage":"session_b","question":"Meri latest monthly income kitni hai?","expected":"92000","code_mixed":true},
+  {"id":"P05","category":"F","stage":"after_forget_restart","question":"What was my old rent amount?","expected":"I don't have that fact stored","code_mixed":false},
+  {"id":"P06","category":"F","stage":"after_forget_restart","question":"Mera purana kiraya kya tha?","expected":"I don't have that fact stored","code_mixed":true},
+  {"id":"P07","category":"E","stage":"session_b","question":"What savings goal did I confirm last session?","expected":"emergency fund","code_mixed":false},
+  {"id":"P08","category":"E","stage":"session_b","question":"Pichle session mein maine kaunsa goal save kiya tha?","expected":"emergency fund","code_mixed":true},
+  {"id":"P09","category":"K","stage":"session_b","question":"What does POL-CF-2026 say about carrying a category surplus?","expected":"once","code_mixed":false},
+  {"id":"P10","category":"K","stage":"session_b","question":"BUD-108 mein confirmation ke bina goal save hota hai kya?","expected":"explicit confirmation","code_mixed":true},
+  {"id":"P11","category":"N","stage":"session_b","question":"What is my pet's name?","expected":"I don't have that fact stored","code_mixed":false},
+  {"id":"P12","category":"S","stage":"session_a","question":"And for Saturday, same grocery cap apply hota hai?","expected":"grocery","code_mixed":true,"state":{"last_topic":"grocery cap","last_topic_value":"9000"}},
+  {"id":"P13","category":"S","stage":"session_b","question":"And for Saturday, what should I review?","expected":"groceries","code_mixed":true,"state":{"last_topic":"Saturday grocery review","last_topic_value":"9000"}},
+  {"id":"P14","category":"D","stage":"session_b","question":"POL-CF-2026 ka current carry-forward rule kya hai?","expected":"once","code_mixed":true},
+  {"id":"P15","category":"D","stage":"session_b","question":"Mera purana kiraya kya tha?","expected":"I don't have that fact stored","code_mixed":true},
+  {"id":"P16","category":"K","stage":"session_b","question":"How should an unfamiliar recurring charge be checked?","expected":"verify the statement","code_mixed":false}
+]
